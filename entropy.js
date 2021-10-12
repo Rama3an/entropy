@@ -27,14 +27,19 @@ fs.readFile(arg[2], (err, inputData) => {
         alph[i] /= inputData.length;
         } будет работать, но неверно */
 
-        let powerAlph = 0;
-        for (i in alph) {
-            powerAlph++;
-            alph[i] /= inputData.length;
-            entropy += (alph[i] * Math.log(alph[i]));
+        lfunction NewBaseLog(x, y) {
+            return Math.log(y) / Math.log(x);
         }
 
-        entropy /= Math.log(powerAlph);
+        let powerAlph = 0;
+        for (i in alph)
+            powerAlph++;
+            
+        for (i in alph){
+            alph[i] /= inputData.length;
+            entropy += (alph[i] * NewBaseLog(powerAlph, alph[i]));
+        }
+
         entropy = Math.abs(entropy);
 
         if (isNaN(entropy)){
